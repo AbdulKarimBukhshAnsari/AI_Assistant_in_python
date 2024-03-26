@@ -5,6 +5,7 @@ import win32com.client
 import webbrowser                 #handling web activities        
 import os
 import datetime
+import wikipedia
 
 
 
@@ -13,7 +14,7 @@ import datetime
 from social_accounts import social_account
 from social_accounts import websites
 from pc_functions import functions_of_pc
-
+from geminiai import *
 
 
 
@@ -23,10 +24,10 @@ def said(text):
     buddy_speaker.Speak(text)
 
 def recognize_audio():
-    au = sr.Recognizer()
+    au = sr.Recognizer()  #recognize the voice
     try:
-        with sr.Microphone() as source_of_audio:
-            au.pause_threshold = 0.6
+        with sr.Microphone() as source_of_audio:   
+
             audio = au.listen(source_of_audio)
             result = au.recognize_google(audio,language="en-PK")
             print(f"The recognize voice is {result}")
@@ -34,10 +35,24 @@ def recognize_audio():
     except:
         return "Some error occured sorry for inconvenience  !!"
 
-        
+
+def greeting():
+    present_time = int(datetime.datetime.now().strftime("%H"))  #check the present time
+
+    if 5<present_time<12:
+        said("Good Morning Abdul Karim")   #checking the condition 
+    elif 12<=present_time<16:
+        said("Good Afternoon Karim")
+    elif 16<=present_time<20:
+        said("Good Evening Karim")
+    else:
+        said("Good Night Karim")
+
+    said("I am Buddy AI. I am your Assisstant and I would always be here to help you...")
+
 
 if __name__ =="__main__":
-    said("Hello Karim How are you..I am Buddy Your assisstant I would always be here to help you.")
+    greeting()
     while True:
         print("listening...")
         audio =recognize_audio()
@@ -63,7 +78,19 @@ if __name__ =="__main__":
                 
         if f"what is the time" in audio:
             time = datetime.datetime.now().strftime("%H:%M:%S")
-            said(f"time is {time}")                        
-                
+            said(f"time is {time}")  
 
+        #connecting with wikipedia  
+        elif f"wikipedia" in audio:
+            said("Searching on wikipedia.........")
+            search = audio.split("wikipedia") #remove the wikipedia from the audio 
+            result = search[-1] + "in only two sentence"
+            
+        #connecting with artificial intelligence
+        elif  "using artificial intelligence" in audio:
+            said("I am working on your data by using artificial intelligence")
+            main_gimini(audio)  
+        elif "quit" in audio:
+            said("I am Quiting the program. Thanks for your time and in future if you need me you can call me, I would always be here to help you.")
+            quit()
         
