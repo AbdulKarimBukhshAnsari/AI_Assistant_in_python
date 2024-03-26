@@ -27,7 +27,7 @@ def recognize_audio():
     au = sr.Recognizer()  #recognize the voice
     try:
         with sr.Microphone() as source_of_audio:   
-
+            
             audio = au.listen(source_of_audio)
             result = au.recognize_google(audio,language="en-PK")
             print(f"The recognize voice is {result}")
@@ -87,9 +87,11 @@ if __name__ =="__main__":
             result = search[-1] + "in only two sentence"
             
         #connecting with artificial intelligence
-        elif  "using artificial intelligence" in audio:
+        elif  "using artificial intelligence" in audio:      #if you want to use artificial intelligence you must use the word "using artificial intelligencce"
             said("I am working on your data by using artificial intelligence")
-            main_gimini(audio)  
+            main_gimini(audio) 
+
+        #for quitting the program 
         elif "quit" in audio:
             said("I am Quiting the program. Thanks for your time and in future if you need me you can call me, I would always be here to help you.")
             quit()
