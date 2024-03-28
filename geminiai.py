@@ -12,15 +12,16 @@ def to_markdown(text):
     return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
 
 def main_gimini(text):
-    os.environ['GOOGLE_API_KEY'] = "AIzaSyAfxRvgAy1z9D0MLWyXZ6b1RHFYqg0izcw"
+    os.environ['GOOGLE_API_KEY'] = "Your_API"
 
-    genai.configure(api_key="AIzaSyAfxRvgAy1z9D0MLWyXZ6b1RHFYqg0izcw")
+    genai.configure(api_key="Your_API")
 
     model = genai.GenerativeModel('gemini-pro')
     response = model.generate_content(text)
-
+    
     # Store the text of the response
     response_text = response.text
+    
 
     # Display the response
     to_markdown(response_text)
@@ -33,3 +34,16 @@ def main_gimini(text):
 
     print(f"Generated text saved to geminidata folder as {text_exp_1}")
 
+def gemini_for_chat(audio):
+    os.environ['GOOGLE_API_KEY'] = "Your_API"
+
+    genai.configure(api_key="Your_API")
+
+    model = genai.GenerativeModel('gemini-pro')
+    response = model.generate_content(audio)
+    
+    # Store the text of the response
+    response_text = response.text
+    
+
+    return response_text

@@ -1,0 +1,36 @@
+```python
+import tkinter as tk
+from tkinter import ttk
+import sympy
+
+# Create the calculator window
+window = tk.Tk()
+window.title("Scientific Calculator")
+
+# Create the input field
+input_field = ttk.Entry(window, width=40)
+input_field.grid(row=0, column=0, columnspan=3)
+
+# Create the buttons
+button_list = [
+    ['7', '8', '9', '/', 'sqrt'],
+    ['4', '5', '6', '*', '%'],
+    ['1', '2', '3', '-', 'log'],
+    ['.', '0', 'C', '+', '='],
+]
+
+# Create the buttons and bind them to functions
+for row, buttons in enumerate(button_list):
+    for column, button in enumerate(buttons):
+        btn = ttk.Button(window, text=button)
+        btn.grid(row=row+1, column=column)
+        if button == 'C':
+            btn.configure(command=lambda: input_field.delete(0, tk.END))
+        elif button == '=':
+            btn.configure(command=lambda: input_field.insert(tk.END, sympy.sympify(input_field.get())))
+        else:
+            btn.configure(command=lambda b=button: input_field.insert(tk.END, b))
+
+# Run the calculator window
+window.mainloop()
+```
